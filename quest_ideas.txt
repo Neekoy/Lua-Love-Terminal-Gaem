@@ -1,0 +1,8 @@
+RANDOM QUESTS:
+
+{Internet AD}: Create X software
+On completion: "Kid: thanks for doing my homework sucker"
+2 days later: "Parents made me apologise and give 2x $$$"
+
+{Regular quests}: Choose the right command
+Desc: click on the correct command within X seconds
