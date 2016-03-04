@@ -42,7 +42,6 @@ function love.draw()
 	love.graphics.draw(backgroundImage, 0 , 0)
 	love.graphics.draw(toolbarImage, 0, 1041)
 	drawTerminal(terminals.terminal.x, terminals.terminal.y)
-	drawTerminal(terminals.terminal2.x, terminals.terminal2.y)
 	if openMenu == 1 then
 		love.graphics.draw(mainMenuImage, 5, 555)
 	end
@@ -119,9 +118,19 @@ function love.mousepressed( x, y, button )
 
 	if x >= 0 and x <= 82
 	and y >= 1041 and y <= 1080 then
-		openMenu = 1
+		if openMenu == 0 then
+		    openMenu = 1
+		else
+			openMenu = 0
+		end
 	end
 
+    if openMenu == 1 then
+		if x >= 375 and y >= 555 or 
+		y <= 555 then
+	        openMenu = 0
+		end
+	end
 
 	for _,l in ipairs(windows) do
 		local ourWindow = terminals[l]
