@@ -1,10 +1,16 @@
 function love.load()
 
 	require ("terminals")
+	require ("parser")
+
+	username = "neekoy"
 
 	input = ""
 	inputHistory = {""}
+  terminalOutput = {""}
 	inputHistoryCount = 0
+  systemOutput = nil
+	terminalPrompt = username .. "@paragon.net.uk:~$ "
 	terminalOpen = 1
 
 	phase = 0
@@ -80,7 +86,7 @@ function love.update(dt)
 			end
 		end
 		blinktime = 0
-	end	
+	end
 
 end
 
@@ -104,8 +110,14 @@ function love.keypressed( key, unicode )
 	if terminals.terminal.active == true then
 		if key == "return" then
 			print (input)
+			parseInput(input)
 			inputHistoryCount = inputHistoryCount + 1
 			table.insert(inputHistory, inputHistoryCount, input)
+			table.insert(terminalOutput, inputHistoryCount, terminalPrompt .. input)
+			if systemOutput then
+			    inputHistoryCount = inputHistoryCount + 1
+			    table.insert(terminalOutput, inputHistoryCount, systemOutput)
+		  end
 			input = ""
 		end
 	end
@@ -126,7 +138,7 @@ function love.mousepressed( x, y, button )
 	end
 
     if openMenu == 1 then
-		if x >= 375 and y >= 555 or 
+		if x >= 375 and y >= 555 or
 		y <= 555 then
 	        openMenu = 0
 		end

@@ -7,6 +7,7 @@ x = 50,
 y = 50,
 width = 820,
 height = 31,
+totalHeight = 552,
 active = true,
 dragging = { active = false, diffX = 0, diffY = 0 }
 }
@@ -30,10 +31,18 @@ function drawTerminal(terminalX, terminalY)
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.setFont(termFont)
 		love.graphics.print ("#! " .. input .. underscore, terminalX + 5, terminalY + 530)
-		for _,v in ipairs(inputHistory) do
-			love.graphics.print (v)
+		lineCount = 0
+--		for _,v in ipairs(inputHistory) do
+--			  table.insert(terminalOutput, v)
+--				if systemOutput then
+--			    	table.insert(terminalOutput, systemOutput)
+--			  end
+--	  end
+		for _,v in ipairs(reverseTable(terminalOutput)) do
+	      love.graphics.print (v, terminals.terminal.x + 20, terminals.terminal.y + terminals.terminal.totalHeight - 38 - (lineCount * 22))
+		    lineCount = lineCount + 1
 		end
-	end	
+	end
 end
 
 function terminalDragging(terminal)
@@ -64,4 +73,13 @@ function terminalMouseReleased(button, terminal)
 	if button == 1 then
 		terminal.dragging.active = false
 	end
+end
+
+function reverseTable (table)
+    local reversedTable = {}
+	  local itemCount = #table
+		for k, v in ipairs(table) do
+			reversedTable[itemCount + 1 - k] = v
+		end
+		return reversedTable
 end
